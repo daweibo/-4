@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关节软骨健康自测</title>
+    <style>
+        body {
+            font-family: '微软雅黑', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .question {
+            display: none;
+            padding: 15px;
+        }
+        .active {
+            display: block;
+        }
+        .option {
+            margin: 10px 0;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .option:hover {
+            background: #f8f9fa;
+            border-color: #4CAF50;
+        }
+        .progress {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: #4CAF50;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        #result {
+            display: none;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+        }
+        .back-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .warning {
+            color: #ff4444;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="progress">
+            <div class="progress-bar" style="width: 8.33%"></div>
+        </div>
+
+        <!-- 问题部分 -->
+        <div class="question active" id="q1">
+            <h3>1. 您在活动时关节（如膝盖）会发出摩擦声或弹响吗？</h3>
+            <div class="option" onclick="nextQuestion(1, 1)">几乎没有</div>
+            <div class="option" onclick="nextQuestion(2, 1)">偶尔发生</div>
+            <div class="option" onclick="nextQuestion(3, 1)">经常出现</div>
+        </div>
+
+        <div class="question" id="q2">
+            <h3>2. 早晨起床时关节僵硬持续多久？</h3>
+            <div class="option" onclick="nextQuestion(1, 2)">不超过10分钟</div>
+            <div class="option" onclick="nextQuestion(2, 2)">10-30分钟</div>
+            <div class="option" onclick="nextQuestion(3, 2)">超过30分钟</div>
+        </div>
+
+        <div class="question" id="q3">
+            <h3>3. 上下楼梯时关节疼痛程度？</h3>
+            <div class="option" onclick="nextQuestion(1, 3)">无痛感</div>
+            <div class="option" onclick="nextQuestion(2, 3)">轻微疼痛</div>
+            <div class="option" onclick="nextQuestion(3, 3)">明显疼痛</div>
+        </div>
+      <div class="question" id="q4">
+    <h3>4. 天气变化时关节不适感：</h3>
+    <div class="option" onclick="nextQuestion(1,4)">无感觉</div>
+    <div class="option" onclick="nextQuestion(2,4)">轻微酸胀</div>
+    <div class="option" onclick="nextQuestion(3,4)">明显疼痛</div>
+</div>
+
+      <div class="question" id="q5">
+    <h3>5. 日常行走超过多少距离会疼痛：</h3>
+    <div class="option" onclick="nextQuestion(1,5)">超过2000米</div>
+    <div class="option" onclick="nextQuestion(2,5)">1000-2000米</div>
+    <div class="option" onclick="nextQuestion(3,5)">不足1000米</div>
+</div>
+
+<!-- 问题6 -->
+<div class="question" id="q6">
+    <h3>6. 久坐后起身时的关节感觉如何？</h3>
+    <div class="option" onclick="nextQuestion(1,6)">活动自如</div>
+    <div class="option" onclick="nextQuestion(2,6)">轻微僵硬</div>
+    <div class="option" onclick="nextQuestion(3,6)">明显僵硬疼痛</div>
+</div>
+
+<!-- 问题7 -->
+<div class="question" id="q7">
+    <h3>7. 夜间休息时是否出现关节疼痛？</h3>
+    <div class="option" onclick="nextQuestion(1,7)">从未发生</div>
+    <div class="option" onclick="nextQuestion(2,7)">每月1-2次</div>
+    <div class="option" onclick="nextQuestion(3,7)">每周≥3次</div>
+</div>
+
+<!-- 问题8 -->
+<div class="question" id="q8">
+    <h3>8. 关节是否出现过肿胀发热？</h3>
+    <div class="option" onclick="nextQuestion(1,8)">从未出现</div>
+    <div class="option" onclick="nextQuestion(2,8)">轻微肿胀无发热</div>
+    <div class="option" onclick="nextQuestion(3,8)">明显肿胀且发热</div>
+</div>
+
+<!-- 问题9 -->
+<div class="question" id="q9">
+    <h3>9. 日常活动受限程度如何？</h3>
+    <div class="option" onclick="nextQuestion(1,9)">完全正常</div>
+    <div class="option" onclick="nextQuestion(2,9)">轻度影响生活</div>
+    <div class="option" onclick="nextQuestion(3,9)">需要辅助工具</div>
+</div>
+
+<!-- 问题10 -->
+<div class="question" id="q10">
+    <h3>10. 关节是否出现可见变形？</h3>
+    <div class="option" onclick="nextQuestion(1,10)">无变形</div>
+    <div class="option" onclick="nextQuestion(2,10)">轻微膨大</div>
+    <div class="option" onclick="nextQuestion(3,10)">明显畸形</div>
+</div>
+
+<!-- 问题11 -->
+<div class="question" id="q11">
+    <h3>11. 直系亲属是否有骨关节炎病史？</h3>
+    <div class="option" onclick="nextQuestion(1,11)">无相关病史</div>
+    <div class="option" onclick="nextQuestion(2,11)">1位亲属有</div>
+    <div class="option" onclick="nextQuestion(3,11)">≥2位亲属有</div>
+</div>
+
+<!-- 问题12 -->
+<div class="question" id="q12">
+    <h3>12. 过去一年关节损伤次数：</h3>
+    <div class="option" onclick="nextQuestion(1,12)">无损伤</div>
+    <div class="option" onclick="nextQuestion(2,12)">1次扭伤</div>
+    <div class="option" onclick="nextQuestion(3,12)">≥2次损伤</div>
+</div>
+
+        <!-- 结果展示 -->
+        <div id="result">
+            <h2>🔍 您的关节健康评估</h2>
+            <p id="result-text"></p>
+            
+            <h3>📋 详细建议：</h3>
+            <div id="advice-content"></div>
+            
+            <h3>🏥 医疗建议：</h3>
+            <div id="medical-advice"></div>
+            
+            <h3>💊 氨糖软骨素使用建议：</h3>
+            <div id="medicine-advice"></div>
+            
+            <p class="warning">⚠ 注意事项：本测试仅供参考，不能替代专业医疗诊断。氨糖可能引起胃肠道不适，建议随餐服用。糖尿病患者使用前请咨询医生。</p>
+            <button class="back-btn" onclick="location.reload()">重新测试</button>
+        </div>
+    </div>
+
+    <script>
+        let totalScore = 0;
+        const maxScore = 36; // 12题×3分
+        let currentQuestion = 1;
+
+        function nextQuestion(score, questionNum) {
+            totalScore += score;
+            document.getElementById(`q${questionNum}`).classList.remove('active');
+            currentQuestion++;
+            
+            if(currentQuestion <= 12) {
+                document.getElementById(`q${currentQuestion}`).classList.add('active');
+                updateProgress();
+            } else {
+                showResult();
+            }
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion/12)*100;
+            document.querySelector('.progress-bar').style.width = `${progress}%`;
+        }
+
+        function showResult() {
+            document.getElementById('result').style.display = 'block';
+            
+            // 结果分级
+            let resultText, adviceHtml, medicalHtml, medicineHtml;
+            
+            if(totalScore <= 12) {
+                resultText = "🍀 当前关节状态良好";
+                adviceHtml = `
+                    <ul>
+                        <li>继续保持每周3-5次低冲击运动（游泳、骑自行车）</li>
+                        <li>注意运动前充分热身10-15分钟</li>
+                        <li>建议每日补充氨糖软骨素进行预防</li>
+                        <li>避免连续站立超过2小时</li>
+                    </ul>
+                `;
+                medicineHtml = "可选择性补充氨糖软骨素，连续服用不超过3个月";
+            } 
+            else if(totalScore <= 24) {
+                resultText = "⚠ 存在中度磨损风险";
+                adviceHtml = `
+                    <ul>
+                        <li>避免跑步、登山等高冲击运动，改为水中运动</li>
+                        <li>控制BMI指数在18.5-24之间（<a href="#" onclick="calculateBMI()">点击计算BMI</a>）</li>
+                        <li>建议每日食用氨糖软骨素，持续6个月</li>
+                        <li>使用护膝等支持装置</li>
+                        <li>每坐1小时起身活动5分钟</li>
+                    </ul>
+                `;
+                medicineHtml = "建议持续补充氨糖软骨素6个月，与食物同服。如出现胃部不适应减量";
+            } 
+            else {
+                resultText = "❗ 存在明显磨损症状";
+                adviceHtml = `
+                    <ul>
+                        <li>立即停止剧烈运动</li>
+                        <li>使用拐杖减轻关节负重</li>
+                        <li>每日热敷2次（每次15分钟，温度不超过45℃）</li>
+                        <li>建议就医进行X光/MRI检查</li>
+                    </ul>
+                `;
+                medicineHtml = "在医生指导下使用药物组合：氨糖软骨素（1500mg/天）+ 非甾体抗炎药。注意胃病患者需配合胃药使用";
+            }
+
+            // 通用医疗建议
+            medicalHtml = `
+                <p>建议就医指标：</p>
+                <ul>
+                    <li>持续疼痛超过2周</li>
+                    <li>关节出现明显肿胀或发热</li>
+                    <li>夜间休息时疼痛加重</li>
+                    <li>关节活动范围减少超过50%</li>
+                </ul>
+            `;
+
+            // 渲染结果
+            document.getElementById('result-text').innerHTML = resultText;
+            document.getElementById('advice-content').innerHTML = adviceHtml;
+            document.getElementById('medical-advice').innerHTML = medicalHtml;
+            document.getElementById('medicine-advice').innerHTML = medicineHtml;
+        }
+
+        // BMI计算函数示例
+        function calculateBMI() {
+            const height = prompt("请输入身高（米），例如1.75");
+            const weight = prompt("请输入体重（公斤）");
+            if(height && weight) {
+                const bmi = (weight/(height*height)).toFixed(1);
+                alert(`您的BMI指数：${bmi}（正常范围18.5-24）`);
+            }
+        }
+    </script>
+</body>
+</html>
